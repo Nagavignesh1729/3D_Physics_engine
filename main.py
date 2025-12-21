@@ -32,9 +32,8 @@ colors = [
 pygame.event.set_grab(True)
 running = True
 
-
 cube.linear_velocity = [50, 20, 40]
-cube.angular_velocity = [0, 1.5, 0]
+cube.angular_velocity = [1, 1, 0]
 
 while running:
     dt = clock.tick(60) / 1000
@@ -63,18 +62,6 @@ while running:
         camera.position = [camera.position[i] - right[i] * speed for i in range(3)]
     if keys[pygame.K_d]:
         camera.position = [camera.position[i] + right[i] * speed for i in range(3)]
-
-    millis = pygame.time.get_ticks()
-    t = (math.sin(millis * 0.001) + 1) * 0.5
-
-    curr_pos = [
-        start_pos[0] + (end_pos[0] - start_pos[0]) * t,
-        start_pos[1] + (end_pos[1] - start_pos[1]) * t,
-        start_pos[2] + (end_pos[2] - start_pos[2]) * t
-    ]
-
-    angle = t * total_spins * 2 * math.pi
-    q_spin = Quaternion.from_axis_angle([1, 1, 0], angle)
 
 
     #cube.set_pose(curr_pos, q_spin)
