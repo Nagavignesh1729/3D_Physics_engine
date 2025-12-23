@@ -5,7 +5,7 @@ class Complex:
         self.re = real
         self.im = imaginary
         self.r = self.magnitude()
-        self.theta = math.atan2(self.im/self.re)
+        self.theta = math.atan2(self.im, self.re)
         
     def __add__(self, other):
         return Complex(

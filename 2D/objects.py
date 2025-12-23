@@ -36,4 +36,4 @@ class Shape:
         return self.vertices
     
     def square(self, r):
-        self.vertices = [(-r, -r), (-r, +r), (+r, +r), (+r, -r)]
+        self.vertices = [(-r, -r), (-r, +r), (+r, +r), (+r, -r)]        

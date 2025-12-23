@@ -19,9 +19,11 @@ def axes(screen):
     pygame.draw.line(screen, WHITE, (origin[0], 0), (origin[0], HEIGHT))
 
 sq = Shape(color = BLUE)
-sq.square(40)
+sq.square(30)
 
-test = Body((origin[0] + 100, origin[1] - 100), 45, sq)
+bodies = []
+for i in range(-2, 3):
+    bodies.append(Body((origin[0] + 100*i, origin[1] - 100), 45, sq))
 
 running = True
 while running:
@@ -34,7 +36,8 @@ while running:
             running = False
     
     axes(screen)
-    test.draw(screen)
+    for i in range(len(bodies)):
+        bodies[i].draw(screen)
     
     pygame.display.flip()
 
