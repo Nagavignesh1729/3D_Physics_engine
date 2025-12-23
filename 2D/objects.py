@@ -1,5 +1,6 @@
 import pygame
 from complexMaths import Complex
+import math
 
 class Body:    
     def __init__(self, position, orientation, shape):
@@ -15,8 +16,15 @@ class Body:
     def draw(self, screen):
         vertices = self.shape.get_vertices()
         res = []
+        theta = (self.orientation * math.pi / 180)
+        rotate_complex = Complex(math.cos(theta), math.sin(theta)).normalize()
+        
         for i in range(len(vertices)):
-            res.append((self.position[0] + vertices[i][0], self.position[1] + vertices[i][1]))
+            x, y = (vertices[i][0], vertices[i][1])
+            point = Complex(x, y)
+            new_point = rotate_complex * point
+            res.append((self.position[0] + new_point.re, self.position[1] + new_point.im))
+            
         pygame.draw.polygon(screen, self.shape.color, res)
 
 class Shape:

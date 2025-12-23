@@ -5,7 +5,7 @@ class Complex:
         self.re = real
         self.im = imaginary
         self.r = self.magnitude()
-        self.theta = math.atan(self.im/self.re)
+        self.theta = math.atan2(self.im/self.re)
         
     def __add__(self, other):
         return Complex(
@@ -20,10 +20,18 @@ class Complex:
         )
     
     def magnitude(self):
-        return math.sqrt(self.re * self.re + self.im * self.im)
+        self.r = math.sqrt(self.re * self.re + self.im * self.im)
+        return self.r
 
     def conjugate(self):
         return Complex(
             self.re,
             -self.im
         )
+    
+    def normalize(self):
+        mag = self.magnitude()
+        self.re /= mag
+        self.im /= mag
+        self.r = 1
+        return self        

@@ -21,7 +21,7 @@ def axes(screen):
 sq = Shape(color = BLUE)
 sq.square(40)
 
-test = Body((origin[0] + 100, origin[1] - 100), 0, sq)
+test = Body((origin[0] + 100, origin[1] - 100), 45, sq)
 
 running = True
 while running:
