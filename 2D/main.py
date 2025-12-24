@@ -1,7 +1,7 @@
 import math
 import sys
 import pygame
-from objects import Shape, Body
+from objects import Shape, Body, ShapeMaker
 
 pygame.init()
 
@@ -18,10 +18,12 @@ def axes(screen):
     pygame.draw.line(screen, WHITE, (0, origin[1]), (WIDTH, origin[1]))
     pygame.draw.line(screen, WHITE, (origin[0], 0), (origin[0], HEIGHT))
 
-body = Body(
+
+reg = ShapeMaker.make_regular_polygon(9, 80)
+poly = Body(
     (origin[0] + 0, origin[1] - 0),
-    0,    
-    Shape().square(50, WHITE)
+    0,
+    reg
 )
 
 angle = 0
@@ -38,8 +40,8 @@ while running:
             running = False
     
     axes(screen)
-    body.draw(screen)
-    body.update(orientation = angle)
+    
+    poly.draw(screen)
     
     pygame.display.flip()
 

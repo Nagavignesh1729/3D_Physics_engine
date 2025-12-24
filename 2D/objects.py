@@ -28,15 +28,48 @@ class Body:
         pygame.draw.polygon(screen, self.shape.color, res)
 
 class Shape:
-    def __init__(self, vertices=None, color=(255, 255, 255)):
+    def __init__(self, vertices=None, color = (255, 255, 255)):
         self.vertices = vertices
         self.color = color
         
     def get_vertices(self):
         return self.vertices
+
     
-    def square(self, r, color):
+class ShapeMaker:
+    @staticmethod
+    def make_square(length):
+        return ShapeMaker.helper_make_regular_polygon(
+            4, 
+            length/math.sqrt(2), 
+            math.pi/4
+        )
+    
+    @staticmethod
+    def make_triangle(length):
+        return ShapeMaker.helper_make_regular_polygon(
+            3, 
+            length/(2*math.sin(math.pi/3)), 
+            -math.pi/2
+        )
+    
+    @staticmethod
+    def make_regular_polygon(nsides, length, offset = 0):
+        return ShapeMaker.helper_make_regular_polygon(
+            nsides,
+            length/(2*math.sin(math.pi/nsides)),
+            0                       
+        )
+        
+    @staticmethod
+    def helper_make_regular_polygon(nverts, r, offset):
+        verts = []
+        theta = offset
+        angle = math.pi * 2 / nverts 
+        for i in range(nverts):
+            verts.append((r * math.cos(theta), r * math.sin(theta)))
+            theta += angle
+        
         return Shape(
-            vertices = [(-r, -r), (-r, +r), (+r, +r), (+r, -r)],
-            color = self.color
+            vertices = verts
         )
