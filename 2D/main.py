@@ -18,26 +18,28 @@ def axes(screen):
     pygame.draw.line(screen, WHITE, (0, origin[1]), (WIDTH, origin[1]))
     pygame.draw.line(screen, WHITE, (origin[0], 0), (origin[0], HEIGHT))
 
-sq = Shape(color = BLUE)
-sq.square(30)
+body = Body(
+    (origin[0] + 0, origin[1] - 0),
+    0,    
+    Shape().square(50, WHITE)
+)
 
-bodies = []
-for i in range(-2, 3):
-    bodies.append(Body((origin[0] + 100*i, origin[1] - 100), 45, sq))
+angle = 0
 
 running = True
 while running:
     dt = clock.tick(60) / 1000
+    angle -= dt * 10
     
-    #screen.fill((0, 0, 0))
+    screen.fill((0, 0, 0))
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     
     axes(screen)
-    for i in range(len(bodies)):
-        bodies[i].draw(screen)
+    body.draw(screen)
+    body.update(orientation = angle)
     
     pygame.display.flip()
 

@@ -35,5 +35,8 @@ class Shape:
     def get_vertices(self):
         return self.vertices
     
-    def square(self, r):
-        self.vertices = [(-r, -r), (-r, +r), (+r, +r), (+r, -r)]        
+    def square(self, r, color):
+        return Shape(
+            vertices = [(-r, -r), (-r, +r), (+r, +r), (+r, -r)],
+            color = self.color
+        )
