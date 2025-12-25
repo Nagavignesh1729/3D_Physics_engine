@@ -2,6 +2,8 @@ import math
 import sys
 import pygame
 from objects import Shape, Body, ShapeMaker
+from myworld import MyWorld
+from vector import Vector
 
 pygame.init()
 
@@ -19,19 +21,20 @@ def axes(screen):
     pygame.draw.line(screen, WHITE, (origin[0], 0), (origin[0], HEIGHT))
 
 
-reg = ShapeMaker.make_regular_polygon(9, 80)
-poly = Body(
-    (origin[0] + 0, origin[1] - 0),
-    0,
-    reg
+reg = ShapeMaker.make_square(80)
+square = Body(
+    position = Vector(origin[0] + 0, origin[1] - 0),
+    orientation = 0,
+    shape = reg,
+    velocity = Vector(10, 20),
+    rotation_speed = 0
 )
 
-angle = 0
+universe = MyWorld(screen, [square])
 
 running = True
 while running:
     dt = clock.tick(60) / 1000
-    angle -= dt * 10
     
     screen.fill((0, 0, 0))
     
@@ -41,7 +44,7 @@ while running:
     
     axes(screen)
     
-    poly.draw(screen)
+    universe.update(dt)
     
     pygame.display.flip()
 
