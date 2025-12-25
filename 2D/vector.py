@@ -66,4 +66,7 @@ class Vector:
         return Vector(
             -self.x,
             self.y
-        ).normalize()  
+        ).normalize()
+    
+    def dot(self, other):
+        return self.x * other.x + self.y + other.y 
