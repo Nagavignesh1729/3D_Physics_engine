@@ -10,6 +10,7 @@ class Body:
         self.velocity = velocity
         self.rotation_speed = rotation_speed
         self.bounds = self.set_local_boundary()
+        self.world_vertices = []
         
     def update(self, dt):
         self.position += self.velocity * dt
@@ -17,17 +18,7 @@ class Body:
         #self.shape = shape if shape is not None else self.shape
     
     def draw(self, screen):
-        vertices = self.shape.get_vertices()
-        res = []
-        theta = (self.orientation * math.pi / 180)
-        rotate_vector = Vector(math.cos(theta), math.sin(theta))
-        
-        for v in vertices:
-            point = Vector(v[0], v[1])
-            new_point = point.rotate_by(rotate_vector)
-            res.append((self.position.x + new_point.x, self.position.y + new_point.y))
-            
-        pygame.draw.polygon(screen, self.shape.color, res)
+        pygame.draw.polygon(screen, self.shape.color, self.world_vertices)
 
     def set_local_boundary(self):
         verts = self.shape.get_vertices()
@@ -37,6 +28,19 @@ class Body:
         max_y = max(v[1] for v in verts)
         
         return (min_x, max_x, min_y, max_y)
+
+    def get_world_space_vertices(self):
+        vertices = self.shape.get_vertices()
+        res = []
+        theta = (self.orientation * math.pi / 180)
+        rotate_vector = Vector(math.cos(theta), math.sin(theta))
+        
+        for v in vertices:
+            point = Vector(v[0], v[1])
+            new_point = point.rotate_by(rotate_vector)
+            res.append((self.position.x + new_point.x, self.position.y + new_point.y))
+        
+        self.world_vertices = res
     
 class Shape:
     def __init__(self, vertices=None, color = (255, 255, 255)):
