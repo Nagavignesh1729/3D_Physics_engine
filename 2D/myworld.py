@@ -5,10 +5,6 @@ class MyWorld:
         self.WIDTH, self.HEIGHT = dimension
         self.center = (self.WIDTH // 2, self.HEIGHT // 2)
         self.bodies = bodies
-        
-        for body in self.bodies:
-            body.set_position_at_center(self.center)
-        
         self.screen = pygame.display.set_mode(dimension)
         self.axes = axes
     
@@ -32,11 +28,11 @@ class MyWorld:
                 body.position.x = -lx_min
             elif body.position.x + lx_max > self.WIDTH:
                 body.velocity.x *= -1
-                body.position.x = -lx_max
+                body.position.x = self.WIDTH - lx_max
             
             if body.position.y + ly_min < 0:
                 body.velocity.y *= -1
                 body.position.y = -ly_min
-            elif body.position.y + ly_max > self.WIDTH:
+            elif body.position.y + ly_max > self.HEIGHT:
                 body.velocity.y *= -1
-                body.position.y = -ly_max
+                body.position.y = self.HEIGHT - ly_max
