@@ -17,27 +17,28 @@ GREEN = (0, 255, 255)
 PURPLE = (255, 0, 255)
 YELLOW = (255, 255, 0)
 
-reg = ShapeMaker.make_square(80, BLUE)
-subject1 = Body(
-    position = Vector(WIDTH//2, HEIGHT//2),
-    orientation = 0,
-    shape = reg,
-    velocity = Vector(150, -100),
-    rotation_speed = 90
-)
-
 subjects = []
 pallete = [WHITE, BLUE, RED, GREEN, PURPLE, YELLOW]
-for i in range(6):
-    subjects.append(
-        Body(
-            position = Vector(WIDTH//2 + i*30, HEIGHT//2 - i*30),
-            orientation = 25 * i,
-            shape = ShapeMaker.make_square(20*i, pallete[i]),
-            velocity = Vector(10 * i, - 20 * i),
-            rotation_speed = 20 * i
-        )
+
+subjects.append(
+    Body(
+        position = Vector(WIDTH//2 + 50, HEIGHT//2 - 50),
+        orientation = 45,
+        shape = ShapeMaker.make_square(80, pallete[2]),
+        velocity = Vector(150, -75),
+        rotation_speed = 20
     )
+)
+
+subjects.append(
+    Body(
+        position = Vector(WIDTH//2 - 50, HEIGHT//2 + 50),
+        orientation = 0,
+        shape = ShapeMaker.make_square(80, pallete[2]),
+        velocity = Vector(-100, -175),
+        rotation_speed = 35
+    )
+)
 
 universe = MyWorld((WIDTH, HEIGHT), subjects, axes=True)
 
