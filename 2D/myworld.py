@@ -45,7 +45,7 @@ class MyWorld:
     #   3) If for some edge, there is no overlap of the projected vertices, 
     #           then there exists a line seperating the bodies. (The line is perpendicular to this projected line)
     
-    # takes 2 bodies and spits out a number (the distance bewtween them)
+    # takes 2 bodies and spits out a number (the distance between them)
     # positive = no collision, negative = collision
     def SAT_collision_dectection(self, body1, body2):
         verts = body1.world_vertices
