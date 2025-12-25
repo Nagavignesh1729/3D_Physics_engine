@@ -8,44 +8,50 @@ from vector import Vector
 pygame.init()
 
 WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 255)
+PURPLE = (255, 0, 255)
+YELLOW = (255, 255, 0)
 
-origin = (WIDTH // 2, HEIGHT // 2)
-
-def axes(screen):
-    pygame.draw.line(screen, WHITE, (0, origin[1]), (WIDTH, origin[1]))
-    pygame.draw.line(screen, WHITE, (origin[0], 0), (origin[0], HEIGHT))
-
-
-reg = ShapeMaker.make_square(80)
-square = Body(
-    position = Vector(origin[0] + 0, origin[1] - 0),
+reg = ShapeMaker.make_square(80, BLUE)
+subject1 = Body(
+    position = Vector(WIDTH//2, HEIGHT//2),
     orientation = 0,
     shape = reg,
-    velocity = Vector(10, 20),
-    rotation_speed = 0
+    velocity = Vector(150, -100),
+    rotation_speed = 90
 )
 
-universe = MyWorld(screen, [square])
+subjects = []
+pallete = [WHITE, BLUE, RED, GREEN, PURPLE, YELLOW]
+for i in range(6):
+    subjects.append(
+        Body(
+            position = Vector(WIDTH//2 + i*30, HEIGHT//2 - i*30),
+            orientation = 25 * i,
+            shape = ShapeMaker.make_square(20*i, pallete[i]),
+            velocity = Vector(10 * i, - 20 * i),
+            rotation_speed = 20 * i
+        )
+    )
+
+universe = MyWorld((WIDTH, HEIGHT), subjects, axes=True)
 
 running = True
 while running:
     dt = clock.tick(60) / 1000
-    
-    screen.fill((0, 0, 0))
-    
+        
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     
-    axes(screen)
-    
     universe.update(dt)
-    
+    universe.draw()
+
     pygame.display.flip()
 
 pygame.quit()
