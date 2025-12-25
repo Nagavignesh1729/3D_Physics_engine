@@ -60,4 +60,10 @@ class Vector:
         self.x /= mag
         self.y /= mag
         self.r = 1
-        return self        
+        return self
+    
+    def unit_normal(self):
+        return Vector(
+            -self.x,
+            self.y
+        ).normalize()  
